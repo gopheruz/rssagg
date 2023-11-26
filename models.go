@@ -14,11 +14,11 @@ type User struct {
 	Name      string    `json:"name"`
 }
 
-func databaseUserToUser(db databse.NewUser  ) User{
+func databaseUserToUser(db databse.NewUser) User {
 	return User{
-		Id: db.ID,
+		Id:        db.ID,
 		CreatedAt: db.CreatedAt,
 		UpdatedAt: db.UpdatedAt,
-		Name: db.Name,
+		Name:      db.Name,
 	}
 }

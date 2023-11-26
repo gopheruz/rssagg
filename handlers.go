@@ -22,20 +22,19 @@ func (apiCfg *apiConfig) handlerCreateuser(w http.ResponseWriter, r *http.Reques
 	params := parametrs{}
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&params)
-	if err != nil{
+	if err != nil {
 		responseWithJson(w, 400, responsestruct{
 			Message: "Error parsing json",
 		})
 		return
 	}
-	user, err:= apiCfg.Db.CreateUser(r.Context(), databse.CreateUserParams{
-		ID: uuid.New(),
-		Name: params.Name,
+	user, err := apiCfg.Db.CreateUser(r.Context(), databse.CreateUserParams{
+		ID:        uuid.New(),
+		Name:      params.Name,
 		CreatedAt: time.Now().UTC().Add(5),
 		UpdatedAt: time.Now().UTC().Add(5),
-
 	})
-	if err != nil{
+	if err != nil {
 		responseWithJson(w, 400, responsestruct{
 			Message: "Couldnt catch user" + err.Error(),
 		})

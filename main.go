@@ -12,9 +12,11 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
-type apiConfig struct{
+
+type apiConfig struct {
 	Db *databse.Queries
 }
+
 func main() {
 	godotenv.Load(".env")
 	portString := os.Getenv("PORT")
@@ -25,8 +27,8 @@ func main() {
 	if dbUrl == "" {
 		log.Fatal("filed to get databse url from enviroment")
 	}
-	conn, err := sql.Open("postgres",dbUrl)
-	if err != nil{
+	conn, err := sql.Open("postgres", dbUrl)
+	if err != nil {
 		log.Fatal("filed to connect databse")
 	}
 	apiCfg := apiConfig{
@@ -44,7 +46,6 @@ func main() {
 	}))
 	v1Router := chi.NewRouter()
 
-	
 	v1Router.HandleFunc("/", responseWithJsonHandler)
 	v1Router.Post("/users", apiCfg.handlerCreateuser)
 	router.Mount("/v1", v1Router)
